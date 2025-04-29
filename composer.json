@@ -1,0 +1,16 @@
+{
+	"name": "charlotterees/plateful",
+	"description": "A plugin for easily adding restaurant menus to wordpress",
+	"type": "wordpress-plugin",
+	"autoload": {
+		"psr-4": {
+			"Plateful\\": "includes/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Charlotte Rees"
+		}
+	],
+	"require": {}
+}

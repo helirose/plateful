@@ -1,0 +1,47 @@
+{
+	"apiVersion": 3,
+	"name": "plateful/menu-item",
+	"title": "Menu Item",
+	"category": "widgets",
+	"icon": "food",
+	"description": "A single menu item with details like name, price, allergens, and more.",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"dish": {
+			"type": "string",
+			"default": ""
+		},
+		"image": {
+			"type": "string",
+			"default": ""
+		},
+		"description": {
+			"type": "string",
+			"default": ""
+		},
+		"price": {
+			"type": "number",
+			"default": 0
+		},
+		"available": {
+			"type": "boolean",
+			"default": true
+		},
+		"allergens": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"default": []
+		},
+		"heatLevel": {
+			"type": "number",
+			"default": 0
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./style.css",
+	"style": "file:./style.css"
+}
