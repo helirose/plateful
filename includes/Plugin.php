@@ -22,13 +22,13 @@ class Plugin {
 	 * Initialization hooks.
 	 */
 	private function init_hooks(): void {
-		// Load blocks.
-		$blocks = new Blocks();
-		$blocks->register();
-
 		// Register custom post types (menu).
 		$menu = new Menu();
 		$menu->register();
+
+		// Load blocks.
+		$blocks = new Blocks();
+		$blocks->register();
 	}
 
 	/**

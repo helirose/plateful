@@ -1,0 +1,21 @@
+{
+	"apiVersion": 3,
+	"name": "plateful/menu-header",
+	"title": "Menu Header",
+	"category": "widgets",
+	"icon": "food",
+	"description": "A section heading for your menu e.g. Starters, Main Course, Desserts",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"postTypes": ["menu"],
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./style.css",
+	"style": "file:./style.css"
+}
