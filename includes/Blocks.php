@@ -13,11 +13,9 @@ class Blocks {
 
 	function register_blocks() {
 		$blocks_dir = plugin_dir_path(__FILE__) . '../build/';
-
-		error_log($blocks_dir);
 	
 		// Loop through all folders in /blocks/
-		foreach (glob($blocks_dir . '*', GLOB_ONLYDIR) as $block_folder) {
+		foreach (glob($blocks_dir . '*-block', GLOB_ONLYDIR) as $block_folder) {
 			$block_json = $block_folder . '/block.json';
 	
 			if (file_exists($block_json)) {

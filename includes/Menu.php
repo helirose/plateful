@@ -7,13 +7,13 @@ class Menu {
 	 * Register hooks.
 	 */
 	public function register(): void {
-		add_action( 'init', [ $this, 'register_post_type' ] );
+		add_action( 'init', [ $this, 'register_menu' ] );
 	}
 
 	/**
 	 * Register the 'menu_item' custom post type.
 	 */
-	public function register_post_type(): void {
+	public function register_menu(): void {
 		$labels = [
 			'name'               => __( 'Menu', 'plateful' ),
 			'singular_name'      => __( 'Menu', 'plateful' ),
@@ -41,4 +41,5 @@ class Menu {
 
 		register_post_type( 'menu', $args );
 	}
+
 }

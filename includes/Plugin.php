@@ -26,6 +26,10 @@ class Plugin {
 		$menu = new Menu();
 		$menu->register();
 
+		// Register custom post types (menu).
+		$menuItems = new MenuItems();
+		$menuItems->register();
+
 		// Load blocks.
 		$blocks = new Blocks();
 		$blocks->register();
