@@ -4,7 +4,7 @@ namespace Plateful;
 
 class MenuItems {
 
-    private array $known_allergens = [
+    public array $known_allergens = [
         'Gluten',
         'Nuts',
         'Dairy',
@@ -29,32 +29,37 @@ class MenuItems {
 
     public function register_items(): void {
         $labels = [
-            'name'               => __( 'Menu item', 'plateful' ),
-            'singular_name'      => __( 'Menu item', 'plateful' ),
+            'name'               => __( 'Plateful menu item', 'plateful' ),
+            'singular_name'      => __( 'Plateful menu item', 'plateful' ),
             'add_new'            => __( 'Add New', 'plateful' ),
-            'add_new_item'       => __( 'Add New Menu item', 'plateful' ),
-            'edit_item'          => __( 'Edit Menu item', 'plateful' ),
-            'new_item'           => __( 'New Menu item', 'plateful' ),
-            'all_items'          => __( 'All Menu items', 'plateful' ),
-            'view_item'          => __( 'View Menu item', 'plateful' ),
-            'search_items'       => __( 'Search Menu items', 'plateful' ),
-            'not_found'          => __( 'No Menu items found', 'plateful' ),
-            'not_found_in_trash' => __( 'No Menu items found in Trash', 'plateful' ),
-            'menu_name'          => __( 'Menu items', 'plateful' ),
+            'add_new_item'       => __( 'Add New Plateful menu item', 'plateful' ),
+            'edit_item'          => __( 'Edit Plateful menu item', 'plateful' ),
+            'new_item'           => __( 'New Plateful menu item', 'plateful' ),
+            'all_items'          => __( 'All Plateful menu items', 'plateful' ),
+            'view_item'          => __( 'View Plateful menu item', 'plateful' ),
+            'search_items'       => __( 'Search Plateful menu items', 'plateful' ),
+            'not_found'          => __( 'No Plateful menu items found', 'plateful' ),
+            'not_found_in_trash' => __( 'No Plateful menu items found in Trash', 'plateful' ),
+            'menu_name'          => __( 'Plateful menu items', 'plateful' ),
         ];
 
         $args = [
             'labels'             => $labels,
-            'public'             => false,
+            'public'             => true,
+            'publicly_queryable' => true,
             'show_ui'            => true,
-            'has_archive'        => true,
+            'has_archive'        => false,
             'show_in_rest'       => true,
             'menu_icon'          => 'dashicons-carrot', // Because carrot.
             'supports'           => [ 'title', 'thumbnail'],
-            'rewrite'            => [ 'slug' => 'menu-item' ],
+            'rewrite'            => [ 'slug' => 'plateful-menu-items' ],
+            'rest_base'         => 'plateful-menu-items',
+            'capability_type'   => 'post',
+            'capabilities'       => [ 'post' ],
+            'map_meta_cap'       => true
         ];
 
-        register_post_type( 'menu-items', $args );
+        register_post_type( 'plateful-menu-items', $args );
     }
 
    public function add_meta_boxes() {
@@ -62,7 +67,7 @@ class MenuItems {
             'plateful-menu-item',
             'Plateful Menu Item',
             [ $this, 'render_fields' ],
-            'menu-items',
+            'plateful-menu-items',
             'normal',
             'high'
         );

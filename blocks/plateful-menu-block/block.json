@@ -1,0 +1,17 @@
+{
+	"apiVersion": 2,
+	"name": "plateful/menu",
+	"title": "Plateful menu",
+	"category": "widgets",
+	"icon": "list-view",
+	"description": "A complete menu which may contain menu items and menu headings",
+	"supports": {
+		"html": false
+	},
+	"postTypes": ["menu"],
+	"attributes": {},
+	"selector": ".wp-block-plateful-menu",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css"
+}

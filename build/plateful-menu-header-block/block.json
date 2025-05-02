@@ -1,0 +1,23 @@
+{
+	"apiVersion": 2,
+	"name": "plateful/menu-header",
+	"title": "Plateful menu header",
+	"category": "text",
+	"icon": "food",
+	"parent": "plateful/menu",
+	"description": "A section heading for your menu e.g. Starters, Main Course, Desserts",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"selector": ".wp-block-plateful-menu-header",
+	"postTypes": ["menu"],
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css"
+}

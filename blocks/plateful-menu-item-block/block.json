@@ -1,0 +1,22 @@
+{
+	"apiVersion": 2,
+	"name": "plateful/menu-item",
+	"title": "Plateful menu Item",
+	"category": "widgets",
+	"icon": "food",
+	"parent": "plateful/menu",
+	"description": "A single menu item with details like name, price, allergens, and more.",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"selectedPost": {
+			"type": "number"
+		}
+	},
+	"selector": ".wp-block-plateful-menu-item",
+	"postTypes": ["menu"],
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css"
+}
