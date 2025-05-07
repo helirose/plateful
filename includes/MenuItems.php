@@ -23,7 +23,7 @@ class MenuItems {
     public function register(): void {
         add_action( 'init', [ $this, 'register_items' ] );
         add_action('add_meta_boxes', [ $this, 'add_meta_boxes' ] );
-        add_action( 'save_post_menu-items', [ $this, 'save_fields' ] );
+        add_action( 'save_post_plateful-menu-items', [ $this, 'save_fields' ] );
     }
 
 
@@ -77,9 +77,10 @@ class MenuItems {
         $values = [
             'description'=> get_post_meta( $post->ID, '_description', true ),
             'price'      => get_post_meta( $post->ID, '_price', true ),
-            'available'  => get_post_meta( $post->ID, '_available', true ),
+            'outOfStock'  => get_post_meta( $post->ID, '_outOfStock', true ),
             'allergens'  => get_post_meta( $post->ID, '_allergens', true ),
             'heatLevel'  => get_post_meta( $post->ID, '_heat_level', true ),
+            'dietary' => get_post_meta( $post->ID, '_dietary', true )
         ];
 
         $heat = $values['heatLevel'] !== '' ? $values['heatLevel'] : 0;
@@ -88,7 +89,22 @@ class MenuItems {
     
         echo '<p><label>Description:<br><textarea name="description" style="width:100%">' . esc_textarea( $values['description'] ) . '</textarea></label></p>';
         echo '<p><label>Price:<br><input type="number" name="price" step="0.01" value="' . esc_attr( $values['price'] ) . '" required></label></p>';
-        echo '<p><label><input type="checkbox" name="available" value="1"' . checked( $values['available'], 1, false ) . '> Available</label></p>';
+        echo '<p><label><input type="checkbox" name="outOfStock" value="1"' . checked( $values['outOfStock'], 1, false ) . '> Out of stock</label></p>';
+        echo '<fieldset style="margin-bottom: 1em;">';
+        echo '<legend><strong>Dietary Labels:</strong></legend>';
+        echo '<label style="display:block;">';
+        echo '<input type="radio" name="dietary_main" value="vegetarian"'  . checked($values['dietary']['main'], 'vegetarian', false) . '>';
+        echo 'Vegetarian';
+        echo '</label>';
+        echo '<label style="display:block;">';
+        echo '<input type="radio" name="dietary_main" value="vegan"' . checked($values['dietary']['main'], 'vegan', false) . '>';
+        echo 'Vegan';
+        echo '</label>';
+        echo '<label style="display:block;">';
+        echo '<input type="checkbox" name="dietary_gluten_free" value="1"' . checked($values['dietary']['gluten_free'], 1, false) . '>';
+        echo 'Gluten Free';
+        echo '</label>';
+        echo '</fieldset>';
         echo '<fieldset style="margin-bottom: 1em;">';
         echo '<legend><strong>Allergens present in this dish:</strong></legend>';
         foreach ( $this->known_allergens as $allergen ) {
@@ -109,8 +125,19 @@ class MenuItems {
     
         if ( ! isset($_POST['plateful_meta_box_nonce']) || ! wp_verify_nonce( $_POST['plateful_meta_box_nonce'], 'plateful_meta_box' ) ) return;
     
-        $fields = ['dish', 'image', 'description', 'price', 'available', 'allergens', 'heatLevel'];
+        $fields = ['description', 'price', 'allergens', 'heatLevel'];
     
+        $out_of_stock = isset($_POST['outOfStock']) ? 1 : 0;
+        update_post_meta( $post_id, '_outOfStock', $out_of_stock );
+
+        $dietary = [
+            'main' => in_array($_POST['dietary_main'] ?? '', ['vegetarian', 'vegan']) ? $_POST['dietary_main'] : '',
+            'gluten_free' => isset($_POST['dietary_gluten_free']) ? 1 : 0,
+        ];
+
+        error_log(print_r($dietary, true));
+        update_post_meta( $post_id, '_dietary', $dietary );
+
         foreach ( $fields as $field ) {
             if ( isset($_POST[$field]) ) {
                 if ( is_array( $_POST[$field] ) ) {
@@ -119,8 +146,6 @@ class MenuItems {
                     $value = sanitize_text_field( $_POST[$field] );
                 }
                 update_post_meta( $post_id, "_$field", $value );
-            } elseif ( $field === 'available' ) {
-                update_post_meta( $post_id, '_available', 0 );
             }
         }
     }
