@@ -14,7 +14,14 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Plateful\Plugin;
 
-define( 'PLATEFUL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+if (!defined( 'PLATEFUL_VERSION')) {
+    define( 'PLATEFUL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+}
+
+if (!defined( 'PLATEFUL_VERSION')) {
+	$plugin_data = get_file_data( __FILE__, [ 'Version' => 'Version' ] );
+	define( 'PLATEFUL_VERSION', $plugin_data['Version'] );
+}
 
 // Initialize the Plugin class
 Plugin::get_instance();

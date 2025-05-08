@@ -63,7 +63,13 @@ class Blocks {
 
 	public function render_plateful_menu($attributes, $content) {
 
-		return '<div>Menu' . do_blocks($content) . '</div>';
+		return '<div>' . do_blocks($content) . '</div>';
+		
+	}
+
+	public function render_plateful_menu_header($attributes, $content) {
+
+		return '<div class="menu-header">' . $attributes['title'] .'</div>';
 		
 	}
 }

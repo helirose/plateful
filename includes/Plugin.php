@@ -33,6 +33,8 @@ class Plugin {
 		// Load blocks.
 		$blocks = new Blocks();
 		$blocks->register();
+
+		add_action( 'wp_enqueue_scripts', [$this, 'plateful_enqueue_styles']);
 	}
 
 	/**
@@ -46,5 +48,10 @@ class Plugin {
 		}
 		return self::$instance;
 	}
+
+	public function plateful_enqueue_styles() {
+		wp_enqueue_style('plateful-menu', plugins_url( 'plateful/build/plateful-menu.css', dirname( __DIR__ )), [], PLATEFUL_VERSION);
+	}
+
 }
 
