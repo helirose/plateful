@@ -4,26 +4,36 @@ namespace Plateful;
 
 class MenuItems {
 
-    public array $known_allergens = [
-        'Gluten',
-        'Nuts',
-        'Dairy',
-        'Eggs',
-        'Soy',
-        'Shellfish',
-        'Fish',
-        'Celery',
-        'Mustard',
-        'Sesame',
-        'Sulphites',
-        'Lupin',
-        'Molluscs',
-    ];
+    public array $known_allergens = [];
 
     public function register(): void {
-        add_action( 'init', [ $this, 'register_items' ] );
-        add_action('add_meta_boxes', [ $this, 'add_meta_boxes' ] );
+        add_action( 'init', [ $this, 'on_init' ] );
+        add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
         add_action( 'save_post_plateful-menu-items', [ $this, 'save_fields' ] );
+    }
+
+    public function on_init(): void {
+        $this->register_items();
+        $this->known_allergens = $this->populate_allergens();
+    }
+
+    public function populate_allergens() {
+        
+        return [
+            'gluten' => __('Gluten', 'plateful'),
+            'nuts' => __('Nuts', 'plateful'),
+            'dairy' => __('Dairy', 'plateful'),
+            'egg' => __('Egg', 'plateful'),
+            'soy' => __('Soy', 'plateful'),
+            'shellfish' => __('Shellfish', 'plateful'),
+            'fish' => __('Fish', 'plateful'),
+            'celery' => __('Celery', 'plateful'),
+            'mustard' => __('Mustard', 'plateful'),
+            'sesame' => __('Sesame', 'plateful'),
+            'sulphites' => __('Sulphites', 'plateful'),
+            'lupin' => __('Lupin', 'plateful'),
+            'molluscs' => __('Molluscs', 'plateful'),
+        ];
     }
 
 
@@ -74,16 +84,18 @@ class MenuItems {
     }
 
     public function render_fields($post) {
+
         $values = [
             'description'=> get_post_meta( $post->ID, '_description', true ),
             'price'      => get_post_meta( $post->ID, '_price', true ),
             'outOfStock'  => get_post_meta( $post->ID, '_outOfStock', true ),
             'allergens'  => get_post_meta( $post->ID, '_allergens', true ),
             'heatLevel'  => get_post_meta( $post->ID, '_heat_level', true ),
-            'dietary' => get_post_meta( $post->ID, '_dietary', true )
+            'dietary'    => get_post_meta( $post->ID, '_dietary', true )
         ];
 
         $heat = $values['heatLevel'] !== '' ? $values['heatLevel'] : 0;
+        $dietary = $values['heatLevel'] !== '' ? $values['dietary'] : ['main' => '', 'gluten_free' => 0];
     
         wp_nonce_field( 'plateful_meta_box', 'plateful_meta_box_nonce');
     
@@ -93,15 +105,15 @@ class MenuItems {
         echo '<fieldset style="margin-bottom: 1em;">';
         echo '<legend><strong>Dietary Labels:</strong></legend>';
         echo '<label style="display:block;">';
-        echo '<input type="radio" name="dietary_main" value="vegetarian"'  . checked($values['dietary']['main'], 'vegetarian', false) . '>';
+        echo '<input type="radio" name="dietary_main" value="vegetarian"'  . checked($dietary['main'], 'vegetarian', false) . '>';
         echo 'Vegetarian';
         echo '</label>';
         echo '<label style="display:block;">';
-        echo '<input type="radio" name="dietary_main" value="vegan"' . checked($values['dietary']['main'], 'vegan', false) . '>';
+        echo '<input type="radio" name="dietary_main" value="vegan"' . checked($dietary['main'], 'vegan', false) . '>';
         echo 'Vegan';
         echo '</label>';
         echo '<label style="display:block;">';
-        echo '<input type="checkbox" name="dietary_gluten_free" value="1"' . checked($values['dietary']['gluten_free'], 1, false) . '>';
+        echo '<input type="checkbox" name="dietary_gluten_free" value="1"' . checked($dietary['gluten_free'], 1, false) . '>';
         echo 'Gluten Free';
         echo '</label>';
         echo '</fieldset>';
@@ -117,7 +129,7 @@ class MenuItems {
             );
         }
         echo '</fieldset>';
-        echo '<p><label>Heat Level (0–5):<br><input type="number" name="heatLevel" min="0" max="5" value="' . esc_attr($heat) . '" required></label></p>';
+        echo '<p><label>' . __('Heat Level (0 Mild – 5 Very Spicy)', 'plateful') . ':<br><input type="number" name="heatLevel" min="0" max="5" value="' . esc_attr($heat) . '" required></label></p>';
     }
 
     public function save_fields( $post_id ) {
@@ -125,7 +137,10 @@ class MenuItems {
     
         if ( ! isset($_POST['plateful_meta_box_nonce']) || ! wp_verify_nonce( $_POST['plateful_meta_box_nonce'], 'plateful_meta_box' ) ) return;
     
-        $fields = ['description', 'price', 'allergens', 'heatLevel'];
+        $fields = ['description', 'price', 'allergens'];
+
+        $heat_level = isset($_POST['heatLevel']) ? $_POST['heatLevel'] : 0;
+        update_post_meta( $post_id, '_heat_level', $heat_level );
     
         $out_of_stock = isset($_POST['outOfStock']) ? 1 : 0;
         update_post_meta( $post_id, '_outOfStock', $out_of_stock );
@@ -134,8 +149,6 @@ class MenuItems {
             'main' => in_array($_POST['dietary_main'] ?? '', ['vegetarian', 'vegan']) ? $_POST['dietary_main'] : '',
             'gluten_free' => isset($_POST['dietary_gluten_free']) ? 1 : 0,
         ];
-
-        error_log(print_r($dietary, true));
         update_post_meta( $post_id, '_dietary', $dietary );
 
         foreach ( $fields as $field ) {
