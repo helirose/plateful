@@ -4,7 +4,7 @@
 	"title": "Plateful menu Item",
 	"category": "widgets",
 	"icon": "food",
-	"parent": "plateful/menu",
+	"parent": "plateful/menu-section",
 	"description": "A single menu item with details like name, price, allergens, and more.",
 	"supports": {
 		"html": false

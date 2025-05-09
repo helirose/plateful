@@ -1,11 +1,11 @@
 {
 	"apiVersion": 2,
-	"name": "plateful/menu-header",
-	"title": "Plateful menu header",
+	"name": "plateful/menu-section",
+	"title": "Plateful menu section",
 	"category": "text",
 	"icon": "food",
 	"parent": "plateful/menu",
-	"description": "A section heading for your menu e.g. Starters, Main Course, Desserts",
+	"description": "A section for your menu e.g. Starters, Main Course, Curries, Noodles",
 	"supports": {
 		"html": false
 	},
@@ -15,7 +15,7 @@
 			"default": ""
 		}
 	},
-	"selector": ".wp-block-plateful-menu-header",
+	"selector": ".wp-block-plateful-menu-section",
 	"postTypes": ["menu"],
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",

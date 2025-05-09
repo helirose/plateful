@@ -7,17 +7,19 @@
 	"scripts": {
 		"build:menu": "wp-scripts build blocks/plateful-menu-block/index.js --output-path=build/plateful-menu-block",
 		"build:menuItem": "wp-scripts build blocks/plateful-menu-item-block/index.js --output-path=build/plateful-menu-item-block",
-		"build:menuHeader": "wp-scripts build blocks/plateful-menu-header-block/index.js --output-path=build/plateful-menu-header-block",
-		"sass:plateful": "sass src/plateful-menu.scss build/plateful-menu.css",
+		"build:menuSection": "wp-scripts build blocks/plateful-menu-section-block/index.js --output-path=build/plateful-menu-section-block",
+		"build:frontend": "wp-scripts build src/plateful-menu.js --output-path=build/frontend",
+		"build:all": "npm run build:menu && npm run build:menuItem && npm run build:menuSection && npm run build:frontend",
+		"sass:plateful": "sass src/plateful-menu.scss build/frontend/plateful-menu.css",
 		"sass:menu": "sass blocks/plateful-menu-block/style.scss build/plateful-menu-block/style.css && sass blocks/plateful-menu-block/editor.scss build/plateful-menu-block/editor.css",
 		"sass:menuItem": "sass blocks/plateful-menu-item-block/style.scss build/plateful-menu-item-block/style.css && sass blocks/plateful-menu-item-block/editor.scss build/plateful-menu-item-block/editor.css",
-		"sass:menuHeader": "sass blocks/plateful-menu-header-block/style.scss build/plateful-menu-header-block/style.css && sass blocks/plateful-menu-header-block/editor.scss build/plateful-menu-header-block/editor.css",
+		"sass:menuSection": "sass blocks/plateful-menu-section-block/style.scss build/plateful-menu-section-block/style.css && sass blocks/plateful-menu-section-block/editor.scss build/plateful-menu-section-block/editor.css",
 		"start:menu": "wp-scripts start blocks/plateful-menu-block/index.js --output-path=build/plateful-menu-block",
 		"start:menuItem": "wp-scripts start blocks/plateful-menu-item-block/index.js --output-path=build/plateful-menu-item-block",
-		"start:menuHeader": "wp-scripts start blocks/plateful-menu-header-block/index.js --output-path=build/plateful-menu-header-block",
+		"start:menuSection": "wp-scripts start blocks/plateful-menu-section-block/index.js --output-path=build/plateful-menu-section-block",
 		"copy-json": "copyfiles -u 1 \"blocks/**/block.json\" build",
-		"build": "npm run build:menu && npm run build:menuItem && npm run build:menuHeader && npm run sass:menu && npm run sass:menuItem && npm run sass:menuHeader && npm run sass:plateful && npm run copy-json",
-		"start": "npm run start:menu && npm run start:menuItem && npm run start:menuHeader && npm run sass:menu && npm run sass:menuItem && npm run sass:menuHeader && npm run sass:plateful && npm run copy-json"
+		"build": "npm run build:all && npm run sass:menu && npm run sass:menuItem && npm run sass:menuSection && npm run sass:plateful && npm run copy-json",
+		"start": "npm run start:menu && npm run start:menuItem && npm run start:menuSection && npm run sass:menu && npm run sass:menuItem && npm run sass:menuSection && npm run sass:plateful && npm run copy-json"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^30.15.0",

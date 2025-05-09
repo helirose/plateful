@@ -35,6 +35,7 @@ class Plugin {
 		$blocks->register();
 
 		add_action( 'wp_enqueue_scripts', [$this, 'plateful_enqueue_styles']);
+		add_action( 'wp_enqueue_scripts', [$this, 'plateful_enqueue_scripts']);
 	}
 
 	/**
@@ -50,7 +51,11 @@ class Plugin {
 	}
 
 	public function plateful_enqueue_styles() {
-		wp_enqueue_style('plateful-menu', plugins_url( 'plateful/build/plateful-menu.css', dirname( __DIR__ )), [], PLATEFUL_VERSION);
+		wp_enqueue_style('plateful-menu', plugins_url( 'plateful/build/frontend/plateful-menu.css', dirname( __DIR__ )), [], PLATEFUL_VERSION);
+	}
+
+	public function plateful_enqueue_scripts() {
+		wp_enqueue_script('plateful-menu', plugins_url( 'plateful/build/frontend/plateful-menu.js', dirname( __DIR__ )), [], PLATEFUL_VERSION);
 	}
 
 }

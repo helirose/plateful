@@ -4,7 +4,7 @@
 	"title": "Plateful menu",
 	"category": "widgets",
 	"icon": "list-view",
-	"description": "A complete menu which may contain menu items and menu headings",
+	"description": "A complete menu which may contain menu sections",
 	"supports": {
 		"html": false
 	},

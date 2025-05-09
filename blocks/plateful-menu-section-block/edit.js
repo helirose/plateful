@@ -1,5 +1,5 @@
 import { TextControl } from "@wordpress/components";
-import { useBlockProps } from "@wordpress/block-editor";
+import { InnerBlocks, useBlockProps } from "@wordpress/block-editor";
 
 export default function Edit({ attributes, setAttributes }) {
 	const { title = "" } = attributes;
@@ -11,6 +11,9 @@ export default function Edit({ attributes, setAttributes }) {
 				value={title}
 				onChange={(value) => setAttributes({ title: value })}
 				required
+			/>
+			<InnerBlocks
+				allowedBlocks={["plateful/menu-item"]}
 			/>
 		</div>
 	);

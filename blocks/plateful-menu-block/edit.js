@@ -5,7 +5,7 @@ export default function Edit() {
 	return (
 		<div {...blockProps}>
 			<InnerBlocks
-				allowedBlocks={["plateful/menu-header", "plateful/menu-item"]}
+				allowedBlocks={["plateful/menu-section"]}
 			/>
 		</div>
 	);
