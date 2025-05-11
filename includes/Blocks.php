@@ -37,6 +37,28 @@ class Blocks {
 		}
 	}
 
+	public function render_plateful_menu($attributes, $content) {
+
+		return 'Test Test Test<div>' . do_blocks($content) . '</div>';
+		
+	}
+
+	public function render_plateful_menu_section($attributes, $content) {
+
+		error_log("Inside the plateful_menu_section block");
+
+		$output = 'Section section section';
+		// $output .= '<div class="menu-section">' ;
+		// $output .= $attributes['title'];
+		// $output .= '<div class="menu-section-content">';
+		// //$output .= do_blocks($content);
+		// $output .= '</div>';
+		// $output .= '</div>';
+
+		return $output;
+		
+	}
+
 	public function render_plateful_menu_item($attributes) {
 		$post_id = $attributes['selectedPost'];
 
@@ -59,25 +81,5 @@ class Blocks {
 			$output .= '</div>';
 			return $output;
 		}
-	}
-
-	public function render_plateful_menu($attributes, $content) {
-
-		return '<div>' . do_blocks($content) . '</div>';
-		
-	}
-
-	public function render_plateful_menu_section($attributes, $content) {
-
-		$output = '';
-		$output .= '<div class="menu-section">' ;
-		$output .= $attributes['title'];
-		$output .= '<div class="menu-section-content">';
-		$output .= do_blocks($content);
-		$output .= '</div>';
-		$output .= '</div>';
-
-		return $output;
-		
 	}
 }

@@ -3,18 +3,11 @@ import { InnerBlocks, useBlockProps } from "@wordpress/block-editor";
 
 export default function Edit({ attributes, setAttributes }) {
 	const { title = "" } = attributes;
+	const blockProps = useBlockProps();
 
 	return (
-		<div {...useBlockProps()}>
-			<TextControl
-				label="title"
-				value={title}
-				onChange={(value) => setAttributes({ title: value })}
-				required
-			/>
-			<InnerBlocks
-				allowedBlocks={["plateful/menu-item"]}
-			/>
+		<div {...blockProps}>
+			<InnerBlocks allowedBlocks={["plateful/menu-item"]} />
 		</div>
 	);
 }

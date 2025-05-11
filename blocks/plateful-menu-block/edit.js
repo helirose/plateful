@@ -4,9 +4,7 @@ export default function Edit() {
 	const blockProps = useBlockProps();
 	return (
 		<div {...blockProps}>
-			<InnerBlocks
-				allowedBlocks={["plateful/menu-section"]}
-			/>
+			<InnerBlocks />
 		</div>
 	);
 }

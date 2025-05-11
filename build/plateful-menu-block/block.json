@@ -6,6 +6,7 @@
 	"icon": "list-view",
 	"description": "A complete menu which may contain menu sections",
 	"supports": {
+		"innerBlocks": true,
 		"html": false
 	},
 	"postTypes": ["menu"],
@@ -13,5 +14,6 @@
 	"selector": ".wp-block-plateful-menu",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",
-	"style": "file:./style.css"
+	"style": "file:./style.css",
+	"render": "plateful\\render_plateful_menu_block"
 }

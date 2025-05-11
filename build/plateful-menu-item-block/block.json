@@ -18,5 +18,6 @@
 	"postTypes": ["menu"],
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",
-	"style": "file:./style.css"
+	"style": "file:./style.css",
+	"render": "plateful\\render_plateful_menu_item_block"
 }

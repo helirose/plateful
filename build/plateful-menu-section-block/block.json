@@ -7,6 +7,7 @@
 	"parent": "plateful/menu",
 	"description": "A section for your menu e.g. Starters, Main Course, Curries, Noodles",
 	"supports": {
+		"innerBlocks": true,
 		"html": false
 	},
 	"attributes": {
@@ -19,5 +20,6 @@
 	"postTypes": ["menu"],
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",
-	"style": "file:./style.css"
+	"style": "file:./style.css",
+	"render": "plateful\\render_plateful_menu_section_block"
 }
