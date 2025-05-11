@@ -7,6 +7,12 @@ export default function Edit({ attributes, setAttributes }) {
 
 	return (
 		<div {...blockProps}>
+			<TextControl
+				label="title"
+				value={title}
+				onChange={(value) => setAttributes({ title: value })}
+				required
+			/>
 			<InnerBlocks allowedBlocks={["plateful/menu-item"]} />
 		</div>
 	);
