@@ -23,21 +23,33 @@ class Blocks {
 			$base = end($parts);
 			$block_name = str_replace('-', '_', preg_replace('/-block$/', '', $base));
 			$callback_method = 'render_' . $block_name;
+
+			error_log("Attempting to register: " . $block_name . " with callback method: " . $callback_method);
 	
 			// Register block
 			if (file_exists($block_json)) {
+
+				error_log("Found block.json");
+
 				if(method_exists($this, $callback_method)) {
+
+					error_log("Registered with callback");
+
 					register_block_type($block_folder, [
 						'render_callback' => [$this, $callback_method],
 					]);
 				} else {
 					register_block_type($block_folder);
+
+					error_log("Registered without callback");
 				}
 			}
 		}
 	}
 
 	public function render_plateful_menu($attributes, $content) {
+
+		error_log("Inside the plateful_menu block");
 
 		return 'Test Test Test<div>' . do_blocks($content) . '</div>';
 		

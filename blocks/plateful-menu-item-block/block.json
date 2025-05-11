@@ -16,8 +16,7 @@
 	},
 	"selector": ".wp-block-plateful-menu-item",
 	"postTypes": ["menu"],
-	"editorScript": "file:./index.js",
+	"editorScript": "file:./edit.js",
 	"editorStyle": "file:./editor.css",
-	"style": "file:./style.css",
-	"render": "plateful\\render_plateful_menu_item_block"
+	"style": "file:./style.css"
 }

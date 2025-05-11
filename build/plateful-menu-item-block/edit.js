@@ -1,0 +1,1 @@
+(()=>{"use strict";window.wp.components,window.wp.data,window.ReactJSXRuntime})();
