@@ -23,25 +23,16 @@ class Blocks {
 			$base = end($parts);
 			$block_name = str_replace('-', '_', preg_replace('/-block$/', '', $base));
 			$callback_method = 'render_' . $block_name;
-
-			error_log("Attempting to register: " . $block_name . " with callback method: " . $callback_method);
 	
 			// Register block
 			if (file_exists($block_json)) {
 
-				error_log("Found block.json");
-
 				if(method_exists($this, $callback_method)) {
-
-					error_log("Registered with callback");
-
 					register_block_type($block_folder, [
 						'render_callback' => [$this, $callback_method],
 					]);
 				} else {
 					register_block_type($block_folder);
-
-					error_log("Registered without callback");
 				}
 			}
 		}
@@ -49,23 +40,24 @@ class Blocks {
 
 	public function render_plateful_menu($attributes, $content) {
 
-		error_log("Inside the plateful_menu block");
+		$output = 'Menu menu menu';
+		$output .= '<div class="plateful-menu">';
+		$output .= do_blocks($content);
+		$output .= '</div>';
 
-		return 'Test Test Test<div>' . do_blocks($content) . '</div>';
+		return $output;
 		
 	}
 
 	public function render_plateful_menu_section($attributes, $content) {
 
-		error_log("Inside the plateful_menu_section block");
-
-		$output = 'Section section section';
-		// $output .= '<div class="menu-section">' ;
-		// $output .= $attributes['title'];
-		// $output .= '<div class="menu-section-content">';
-		// //$output .= do_blocks($content);
-		// $output .= '</div>';
-		// $output .= '</div>';
+		$output = '';
+		$output .= '<div class="menu-section">' ;
+		$output .= $attributes['section_name'];
+		$output .= '<div class="menu-section-content">';
+		$output .= do_blocks($content);
+		$output .= '</div>';
+		$output .= '</div>';
 
 		return $output;
 		
@@ -90,6 +82,11 @@ class Blocks {
 			}
 			$output .= '<strong>' . get_the_title($post_id) . '</strong><br>';
 			$output .= '<p>' . $values['description'] . '</p>';
+			if($values['heatLevel']) {
+				for($i = 0; $i < $values['heatLevel']; $i++) {
+					$output .= '<img class="heat-icon" src="'  . esc_url(PLATEFUL_PLUGIN_DIR . 'build/images/chilli-bound.svg' ) . '" alt="chilli-icon" />';
+				}
+			}
 			$output .= '</div>';
 			return $output;
 		}

@@ -1,10 +1,14 @@
 import { InnerBlocks, useBlockProps } from "@wordpress/block-editor";
 
-export default function Edit() {
-	const blockProps = useBlockProps();
+const Edit = () => {
+	const blockProps = useBlockProps({
+		className: "plateful-menu-block",
+	});
 	return (
 		<div {...blockProps}>
 			<InnerBlocks />
 		</div>
 	);
-}
+};
+
+export default Edit;
