@@ -5,6 +5,24 @@
 	padding: 2em;
 }
 
+.plateful-menu-item {
+	display: flex;
+	flex-wrap: nowrap;
+
+	img {
+		flex-grow: 0;
+		width: 100px;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	div {
+		padding: 1em;
+		flex: 1 1 auto;
+	}
+}
+
 .heat-icon {
 	width: 30px;
 	height: auto;

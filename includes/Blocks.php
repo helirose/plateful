@@ -40,7 +40,7 @@ class Blocks {
 
 	public function render_plateful_menu($attributes, $content) {
 
-		$output = 'Menu menu menu';
+		$output = '';
 		$output .= '<div class="plateful-menu">';
 		$output .= do_blocks($content);
 		$output .= '</div>';
@@ -52,11 +52,11 @@ class Blocks {
 	public function render_plateful_menu_section($attributes, $content) {
 
 		$output = '';
-		$output .= '<div class="menu-section">' ;
-		$output .= $attributes['section_name'];
+		$output .= '<div class="menu-section-title">' ;
+		$output .= '<h2>' . $attributes['section_name'] . '</h2>';
+		$output .= '</div>';
 		$output .= '<div class="menu-section-content">';
 		$output .= do_blocks($content);
-		$output .= '</div>';
 		$output .= '</div>';
 
 		return $output;
@@ -76,17 +76,24 @@ class Blocks {
 				'allergens'  => get_post_meta( $post_id, '_allergens', true ),
 				'heatLevel'  => get_post_meta( $post_id, '_heat_level', true ),
 			];
-			$output = '<div>';
+			$img = get_the_post_thumbnail($post_id);
+			$output = '<div class="plateful-menu-item">';
+			if($img) {
+				$output .= $img;
+
+			}
 			if($values['outOfStock']) {
 				$output .= '<p><strong>Out of stock</strong></p>';
 			}
-			$output .= '<strong>' . get_the_title($post_id) . '</strong><br>';
+			$output .= '<div class="plateful-menu-item-content">';
+			$output .= '<strong>' . get_the_title($post_id) . '</strong>';
 			$output .= '<p>' . $values['description'] . '</p>';
 			if($values['heatLevel']) {
 				for($i = 0; $i < $values['heatLevel']; $i++) {
 					$output .= '<img class="heat-icon" src="'  . esc_url(PLATEFUL_PLUGIN_DIR . 'build/images/chilli-bound.svg' ) . '" alt="chilli-icon" />';
 				}
 			}
+			$output .= '</div>';
 			$output .= '</div>';
 			return $output;
 		}
