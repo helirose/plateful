@@ -60,6 +60,11 @@ class Blocks {
 			return '<p>No menu item selected.</p>';
 		}
 
+		$thumbnail = get_the_post_thumbnail($post_id, array('class' => 'plateful-thumbnail'));
+		$post_img = $thumbnail ? $thumbnail : '<img src="' . PLATEFUL_PLUGIN_URL . '/build/images/placeholder.svg" alt="No photo provided for this menu item" />';
+
+		error_log($post_img);
+
 		$values = [
 			'title'       => get_the_title($post_id),
 			'description' => get_post_meta($post_id, '_description', true),
@@ -67,7 +72,7 @@ class Blocks {
 			'outOfStock'  => get_post_meta($post_id, '_outOfStock', true),
 			'allergens'   => get_post_meta($post_id, '_allergens', true),
 			'heatLevel'   => (int) get_post_meta($post_id, '_heat_level', true),
-			'image'       => get_the_post_thumbnail($post_id, array('class' => 'plateful-thumbnail'))
+			'image'       => $post_img,
 		];
 
 		return Plugin::get_instance()->render_twig('menu-item.twig', $values);
