@@ -12,5 +12,7 @@
 			"name": "Charlotte Rees"
 		}
 	],
-	"require": {}
+	"require": {
+		"twig/twig": "^3.21"
+	}
 }

@@ -2,6 +2,9 @@
 
 namespace Plateful;
 
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
 class Plugin {
 /**
 	 * Instance of this class.
@@ -9,6 +12,7 @@ class Plugin {
 	 * @var Plugin
 	 */
 	private static $instance;
+	protected $twig;
 
 	/**
 	 * Construct.
@@ -16,6 +20,7 @@ class Plugin {
 	private function __construct() {
 		// Initialize everything here.
 		$this->init_hooks();
+		$this->init_twig();
 	}
 
 	/**
@@ -38,6 +43,14 @@ class Plugin {
 		add_action( 'wp_enqueue_scripts', [$this, 'plateful_enqueue_scripts']);
 	}
 
+	private function init_twig() {
+		$loader = new FilesystemLoader(__DIR__ . '/../templates');
+		$this->twig = new Environment($loader, [
+			'cache' => false,
+		]);
+		$this->twig->addGlobal('plateful_plugin_url', PLATEFUL_PLUGIN_URL);
+	}
+
 	/**
 	 * Get the singleton instance.
 	 *
@@ -56,6 +69,10 @@ class Plugin {
 
 	public function plateful_enqueue_scripts() {
 		wp_enqueue_script('plateful-menu', plugins_url( 'plateful/build/frontend/plateful-menu.js', dirname( __DIR__ )), [], PLATEFUL_VERSION);
+	}
+
+	public function render_twig(string $template, array $context = []): string {
+		return $this->twig->render($template, $context);
 	}
 
 }

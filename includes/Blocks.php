@@ -2,6 +2,8 @@
 
 namespace Plateful;
 
+use Plateful\Plugin;
+
 class Blocks {
 
     /**
@@ -37,30 +39,18 @@ class Blocks {
 			}
 		}
 	}
-
+	
 	public function render_plateful_menu($attributes, $content) {
-
-		$output = '';
-		$output .= '<div class="plateful-menu">';
-		$output .= do_blocks($content);
-		$output .= '</div>';
-
-		return $output;
-		
+		return Plugin::get_instance()->render_twig('menu.twig', [
+			'content' => do_blocks($content),
+		]);
 	}
 
 	public function render_plateful_menu_section($attributes, $content) {
-
-		$output = '';
-		$output .= '<div class="menu-section-title">' ;
-		$output .= '<h2>' . $attributes['section_name'] . '</h2>';
-		$output .= '</div>';
-		$output .= '<div class="menu-section-content">';
-		$output .= do_blocks($content);
-		$output .= '</div>';
-
-		return $output;
-		
+		return Plugin::get_instance()->render_twig('menu-section.twig', [
+			'section_name' => $attributes['section_name'],
+			'content' => do_blocks($content),
+		]);
 	}
 
 	public function render_plateful_menu_item($attributes) {
@@ -68,34 +58,18 @@ class Blocks {
 
 		if (empty($post_id)) {
 			return '<p>No menu item selected.</p>';
-		} else {
-			$values = [
-				'description'=> get_post_meta( $post_id, '_description', true ),
-				'price'      => get_post_meta( $post_id, '_price', true ),
-				'outOfStock'  => get_post_meta( $post_id, '_outOfStock', true ),
-				'allergens'  => get_post_meta( $post_id, '_allergens', true ),
-				'heatLevel'  => get_post_meta( $post_id, '_heat_level', true ),
-			];
-			$img = get_the_post_thumbnail($post_id);
-			$output = '<div class="plateful-menu-item">';
-			if($img) {
-				$output .= $img;
-
-			}
-			if($values['outOfStock']) {
-				$output .= '<p><strong>Out of stock</strong></p>';
-			}
-			$output .= '<div class="plateful-menu-item-content">';
-			$output .= '<strong>' . get_the_title($post_id) . '</strong>';
-			$output .= '<p>' . $values['description'] . '</p>';
-			if($values['heatLevel']) {
-				for($i = 0; $i < $values['heatLevel']; $i++) {
-					$output .= '<img class="heat-icon" src="'  . esc_url(PLATEFUL_PLUGIN_DIR . 'build/images/chilli-bound.svg' ) . '" alt="chilli-icon" />';
-				}
-			}
-			$output .= '</div>';
-			$output .= '</div>';
-			return $output;
 		}
+
+		$values = [
+			'title'       => get_the_title($post_id),
+			'description' => get_post_meta($post_id, '_description', true),
+			'price'       => get_post_meta($post_id, '_price', true),
+			'outOfStock'  => get_post_meta($post_id, '_outOfStock', true),
+			'allergens'   => get_post_meta($post_id, '_allergens', true),
+			'heatLevel'   => (int) get_post_meta($post_id, '_heat_level', true),
+			'image'       => get_the_post_thumbnail($post_id, array('class' => 'plateful-thumbnail'))
+		];
+
+		return Plugin::get_instance()->render_twig('menu-item.twig', $values);
 	}
 }

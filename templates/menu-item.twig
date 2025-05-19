@@ -1,0 +1,29 @@
+{# templates/menu-item.twig #}
+
+<div class="plateful-menu-item">
+  {% if image %}
+    {{ image|raw }}
+  {% endif %}
+
+  {% if outOfStock %}
+    <p><strong>Out of stock</strong></p>
+  {% endif %}
+
+  <div class="plateful-menu-item-content">
+    <strong>{{ title }}</strong>
+
+    {% if description %}
+      <p>{{ description }}</p>
+    {% endif %}
+
+    {% if heatLevel %}
+      {% for i in 1..heatLevel %}
+        <img
+          class="heat-icon"
+          src="{{ plateful_plugin_url ~ '/build/images/chilli-bound.svg' }}"
+          alt="chilli-icon"
+        />
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
