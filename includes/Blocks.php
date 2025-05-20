@@ -60,8 +60,8 @@ class Blocks {
 			return '<p>No menu item selected.</p>';
 		}
 
-		$thumbnail = get_the_post_thumbnail($post_id, array('class' => 'plateful-thumbnail'));
-		$post_img = $thumbnail ? $thumbnail : '<img src="' . PLATEFUL_PLUGIN_URL . '/build/images/placeholder.svg" alt="No photo provided for this menu item" />';
+		$thumbnail = get_the_post_thumbnail($post_id, 'thumbnail', array('class' => 'plateful-thumbnail'));
+		$post_img = $thumbnail ? $thumbnail : '<img src="' . PLATEFUL_PLUGIN_URL . '/build/images/placeholder.svg" class="plateful-thumbnail" alt="No photo provided for this menu item" />';
 
 		error_log($post_img);
 
