@@ -2,7 +2,11 @@
 	font-weight: bold;
 	background: red;
 	color: white;
-	padding: 2em;
+	padding: 0 0 0 1em;
+
+	h3 {
+		display: inline-block;
+	}
 }
 
 .plateful-menu-item {

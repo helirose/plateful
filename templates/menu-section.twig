@@ -1,8 +1,8 @@
 {# templates/menu-section.twig #}
 
-<div class="menu-section-title">
-<h2>{{ section_name }}</h2>
-</div>
-<div class="menu-section-content">
-  {{ content|raw }}
+<details class="plateful-menu-section" name="{{ section_name }}" open="true">
+  <summary class="plateful-menu-section-title">
+    <h3>{{ section_name }}</h3>
+    </summary>
+    {{ content|raw }}
 </div>

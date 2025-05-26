@@ -41,15 +41,18 @@ class Blocks {
 	}
 	
 	public function render_plateful_menu($attributes, $content) {
+
 		return Plugin::get_instance()->render_twig('menu.twig', [
 			'content' => do_blocks($content),
+			'section_names' => $this->find_section_names($content)
 		]);
 	}
 
 	public function render_plateful_menu_section($attributes, $content) {
+
 		return Plugin::get_instance()->render_twig('menu-section.twig', [
 			'section_name' => $attributes['section_name'],
-			'content' => do_blocks($content),
+			'content' => do_blocks($content)
 		]);
 	}
 
@@ -76,5 +79,21 @@ class Blocks {
 		];
 
 		return Plugin::get_instance()->render_twig('menu-item.twig', $values);
+	}
+
+	private function find_section_names($content) {
+		$section_names = [];
+		$dom = new \DOMDocument();
+		$dom->loadHTML($content);
+		$details = $dom->getElementsByTagName('details');
+		foreach ($details as $detail) {
+			if ($detail->hasAttribute('class') && str_contains($detail->getAttribute('class'), 'plateful-menu-section')) {
+				$name = $detail->getAttribute('name');
+				if ($name) {
+					$section_names[] = $name;
+				}
+			}
+		}
+		return $section_names;
 	}
 }

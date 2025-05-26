@@ -1,5 +1,13 @@
 {# templates/menu.twig #}
 
 <div class="plateful-menu">
+  {% if section_names %}
+    <ul class="plateful-jumplinks">
+    {% for name in section_names %}
+      <li><a href="#{{ name|lower|replace({' ': '-'}) }}">{{ name }}</a></li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+
   {{ content|raw }}
 </div>
