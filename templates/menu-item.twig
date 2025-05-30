@@ -10,7 +10,40 @@
   {% endif %}
 
   <div class="plateful-menu-item-content">
+    <span class="plateful-menu-item-title">
     <strong>{{ title }}</strong>
+          {% if dietary.main == 'vegan' %}
+      <img
+        class="plateful-dietary-icon"
+        src="{{ plateful_plugin_url ~ '/build/images/vegan.svg' }}"
+        alt="Vegan"
+      />    
+      {% endif %}
+
+      {% if dietary.main == 'vegetarian' %}
+        <img
+          class="plateful-dietary-icon"
+          src="{{ plateful_plugin_url ~ '/build/images/vegetarian.svg' }}"
+          alt="Vegetarian"
+        />    
+      {% endif %}
+
+      {% if dietary.gluten_free == true %}
+        <img
+          class="plateful-dietary-icon"
+          src="{{ plateful_plugin_url ~ '/build/images/gluten-free.svg' }}"
+          alt="Gluten Free"
+        />    
+      {% endif %}
+
+      {% if dietary.halal == true %}
+        <img
+          class="plateful-dietary-icon"
+          src="{{ plateful_plugin_url ~ '/build/images/halal.svg' }}"
+          alt="Halal"
+        />    
+      {% endif %}
+      </span>
 
     {% if description %}
       <p>{{ description }}</p>
@@ -19,9 +52,9 @@
     {% if heatLevel %}
       {% for i in 1..heatLevel %}
         <img
-          class="heat-icon"
+          class="plateful-heat-icon"
           src="{{ plateful_plugin_url ~ '/build/images/chilli-bound.svg' }}"
-          alt="chilli-icon"
+          alt=""
         />
       {% endfor %}
     {% endif %}

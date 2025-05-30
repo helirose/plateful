@@ -66,18 +66,17 @@ class Blocks {
 		$thumbnail = get_the_post_thumbnail($post_id, 'thumbnail', array('class' => 'plateful-thumbnail'));
 		$post_img = $thumbnail ? $thumbnail : '<img src="' . PLATEFUL_PLUGIN_URL . '/build/images/placeholder.svg" class="plateful-thumbnail" alt="No photo provided for this menu item" />';
 
-		error_log($post_img);
-
 		$values = [
 			'title'       => get_the_title($post_id),
 			'description' => get_post_meta($post_id, '_description', true),
 			'price'       => get_post_meta($post_id, '_price', true),
 			'outOfStock'  => get_post_meta($post_id, '_outOfStock', true),
 			'allergens'   => get_post_meta($post_id, '_allergens', true),
+			'dietary'      => get_post_meta($post_id, '_dietary', true),
 			'heatLevel'   => (int) get_post_meta($post_id, '_heat_level', true),
 			'image'       => $post_img,
 		];
-
+		
 		return Plugin::get_instance()->render_twig('menu-item.twig', $values);
 	}
 

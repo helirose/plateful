@@ -1,4 +1,19 @@
-.menu-section-title {
+.wp-block-plateful-menu-section {
+	width: 100%;
+	margin: 0.5em 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+	align-items: stretch;
+}
+
+.plateful-menu-section {
+	margin: 0.5em 0;
+}
+
+.plateful-menu-section-title {
+	box-sizing: border-box;
+	width: 100%;
 	font-weight: bold;
 	background: red;
 	color: white;
@@ -10,9 +25,10 @@
 }
 
 .plateful-menu-item {
+	width: 100%;
 	display: flex;
 	flex-wrap: nowrap;
-	align-items: flex-start;
+	align-items: stretch;
 	gap: 1em;
 
 	p {
@@ -29,7 +45,34 @@
 	}
 }
 
-.heat-icon {
+.plateful-heat-icon {
 	width: 10px;
 	height: auto;
+}
+
+.plateful-dietary-icon {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+}
+
+.plateful-menu-item-title {
+	display: flex;
+	gap: 0.5em;
+	align-items: stretch;
+	line-height: 1em;
+}
+
+.plateful-menu-item-content {
+	padding: 0.5em 0;
+}
+
+.plateful-top-link {
+	display: block;
+	text-align: right;
+	margin: 0.5em 0;
+
+	a {
+		font-size: var(--wp--preset--font-size--normal);
+	}
 }
