@@ -16,11 +16,13 @@
   width: 100%;
   font-weight: bold;
   background: #134b5f;
-  color: white;
+  color: #ffffff;
   padding: 0 0 0 1em;
 }
 .plateful-menu-section-title h3 {
   display: inline-block;
+  margin-left: 0.2em;
+  color: #ffffff;
 }
 
 .plateful-menu-item {
