@@ -1,8 +1,9 @@
 {# templates/menu-section.twig #}
 
 <details class="plateful-menu-section" name="{{ section_name }}" open="true">
-  <summary class="plateful-menu-section-title">
+  <summary id="{{ section_name|lower|replace({' ': '-'}) }}" class="plateful-menu-section-title">
     <h3>{{ section_name }}</h3>
-    </summary>
-    {{ content|raw }}
-</div>
+  </summary>
+  {{ content|raw }}
+  <a class="plateful-top-link" href="#">Back to top</a>
+</details>
