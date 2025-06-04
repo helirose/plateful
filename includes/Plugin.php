@@ -39,6 +39,10 @@ class Plugin {
 		$blocks = new Blocks();
 		$blocks->register();
 
+		// Load blocks.
+		$options = new Options();
+		$options->register();
+
 		add_action( 'wp_enqueue_scripts', [$this, 'plateful_enqueue_styles']);
 		add_action( 'wp_enqueue_scripts', [$this, 'plateful_enqueue_scripts']);
 	}
@@ -49,6 +53,12 @@ class Plugin {
 			'cache' => false,
 		]);
 		$this->twig->addGlobal('plateful_plugin_url', PLATEFUL_PLUGIN_URL);
+		$this->twig->addFunction(new \Twig\TwigFunction('function', function ($name, ...$args) {
+			if (is_callable($name)) {
+				return call_user_func_array($name, $args);
+			}
+			return null;
+		}));
 	}
 
 	/**

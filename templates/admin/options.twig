@@ -1,0 +1,10 @@
+{# templates/admin/options.twig #}
+
+<div class="wrap">
+    <h1>{{ title }}</h1>
+    <form method="post" action="options.php">
+        {{ function('settings_fields', 'plateful_settings') }}
+        {{ function('do_settings_sections', 'plateful_settings') }}
+        {{ function('submit_button') }}
+    </form>
+</div>
